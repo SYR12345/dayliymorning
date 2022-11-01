@@ -43,7 +43,7 @@ def get_weather(region):
 
     # 获取地区的location--id
     location_id = response['HeWeather6'][0]["basic"]["cid"]
-    weather_url = "https://devapi.qweather.com/v7/weather/now?location={}&key={}".format(location_id, key)
+    weather_url = "https://devapi.qweather.com/v7/weather/now?location={}&adm=北京&key={}".format(location_id, key)
     response = get(weather_url, headers=headers).json()
     # 天气帅达版
     weather = '白天'+response['HeWeather6'][0]["daily_forecast"][0]["cond_txt_d"]+'，'+'傍晚'+response['HeWeather6'][0]["daily_forecast"][0]["cond_txt_n"]
