@@ -37,7 +37,7 @@ def get_weather(region):
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/57.0.2987.113 Safari/537.36'
     }
     key = config["weather_key"]
-    region_url = "https://devapi.qweather.com/v7/weather/now?location={}&key={}".format(region, key)
+    region_url = "https://geoapi.qweather.com/v2/city/lookup?location={}&key={}".format(region, key)
     response = get(region_url, headers=headers).json()
     print(response)
 
