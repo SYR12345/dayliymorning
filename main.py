@@ -42,20 +42,21 @@ def get_weather(region):
     print(response)
 
     # 获取地区的location--id
-    location_id = response['HeWeather6'][0]["basic"]["cid"]
-    weather_url = "https://devapi.qweather.com/v7/weather/now?location={}&adm=北京&key={}".format(location_id, key)
+    location_id = response["location"][0]["id"]
+    weather_url = "https://devapi.qweather.com/v7/weather/now?location={}&key={}".format(location_id, key)
     response = get(weather_url, headers=headers).json()
-    # 天气帅达版
-    weather = '白天'+response['HeWeather6'][0]["daily_forecast"][0]["cond_txt_d"]+'，'+'傍晚'+response['HeWeather6'][0]["daily_forecast"][0]["cond_txt_n"]
-    # 当前温度
-    temp = response['HeWeather6'][0]["daily_forecast"][0]["tmp_min"]+ u"\N{DEGREE SIGN}" + "C"+'—'+response['HeWeather6'][0]["daily_forecast"][0]["tmp_max"]+ u"\N{DEGREE SIGN}" + "C"
-    if int(response['HeWeather6'][0]["daily_forecast"][0]["tmp_min"]) <= 25:
-        xigua = "天气变凉啦，多穿点衣服哦~"
-    else:
-        xigua = "今天又是很想你的一天~"
-    # 风向
-    wind_dir = response['HeWeather6'][0]["daily_forecast"][0]["wind_dir"]
-    return weather, temp, wind_dir, xigua
+    weather = '白天:' + response['daily'][0]["textDay"] + '，' + '傍晚:' + \response['daily'][0]["textNight"]
+
+    #当前温度
+    temp = response['daily'][0]["tempMin"] + u"\N{DEGREE SIGN}" + "C" + '—' + \
+        response['daily'][0]["tempMax"] + u"\N{DEGREE SIGN}" + "C"
+        if int(response['daily'][0]["tempMin"]) <= 25:
+            xigua = "天气变凉啦，多穿点衣服哦~"
+        else:
+            xigua = "今天又是很想你的一天~"
+        # 风向
+        wind_dir = response['daily'][0]["windDirDay"]
+        return weather, temp, wind_dir, xigua
  
 #--------关注微信公众号：繁星资源，更多资源等你拿----------
 def get_birthday(birthday, year, today):
